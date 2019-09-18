@@ -10,12 +10,19 @@
 <body onload="kG()">
 <h1>Welcome to Keeper Guesser!</h1>
 
-<button>Rules</button>
+<button onclick="rules()">Rules</button>
 <button>New Game</button>
 <p id="score"></p>
+<p id="rules"></p>
 
 <script>
 //Keeper Guesser
+
+    //The RULES
+    function rules() {
+        document.getElementById("rules").innerHTML = "The rules";
+    }
+
 function kG() {
 //Welcome player to the game
     alert("Welcome to Keeper Guesser!");
@@ -31,10 +38,7 @@ function kG() {
     } else alert("Invalid Input");
 
 
-    //The RULES
-    function rules() {
-        alert("the rules");
-    }
+
 
 
 //If start then start new game
@@ -55,10 +59,13 @@ function kG() {
             
             if (shotPlace === "LEFT") {
                 playerGuess = 0;
+                shotCompare();
             } else if (shotPlace === "RIGHT") {
                 playerGuess = 1;
+                shotCompare();
             } else if (shotPlace === "CENTER") {
                 playerGuess = 2;
+                shotCompare();
             } else {
                 alert("Invalid Input");
                 askGuess();
@@ -67,18 +74,18 @@ function kG() {
         }
     askGuess();
 
-
-
+    function shotCompare() {
     // Randomize keeper direction
     var keeperGuess = Math.floor((Math.random() * 3));
 
-    if (keeperGuess === playerGuess) {
+    if (keeperGuess !== playerGuess) {
         alert(`Shot Blocked! Current score is ${score}.`);
-        newGame();
+        askGuess();
     } else {
         score++;
         alert(`Goooooool! Current score is ${score}.`);
-        newGame();
+        askGuess();
+    }
     }
 
     // If shot === keeper, then no goal, else goal
