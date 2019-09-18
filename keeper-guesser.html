@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>
+    Keeper Guesser
+</title>
+</head>
+
+<body onload="kG()">
+<h1>Welcome to Keeper Guesser!</h1>
+
+<button>Rules</button>
+<button>New Game</button>
+<p id="score"></p>
+
+<script>
+//Keeper Guesser
+function kG() {
+//Welcome player to the game
+    alert("Welcome to Keeper Guesser!");
+    var ruleStart = window.prompt("Type RULES to see the rules or START to start a new game");
+
+    //Press one for rules and another to start
+    if (ruleStart == "RULES") {
+    // console.log("Here are the rules");
+        rules();
+    } else if (ruleStart == "START") {
+        alert("New game started");
+        newGame();
+    } else alert("Invalid Input");
+
+
+    //The RULES
+    function rules() {
+        alert("the rules");
+    }
+
+
+//If start then start new game
+
+
+
+// New game 
+
+    function newGame() {
+        let score = 0; // Currently broken. resets to zero in this position but code doesn't work at all if it is placed higher up
+    // Ask user to place their shot
+    // maybe if i pull the askguess function out of the new game portion
+// add in toUpperCase method to standardize input
+        let playerGuess = 0;
+            
+        function askGuess() { // can i redo this function asking for the user's arguments instead?
+            var shotPlace = window.prompt("Pick your spot: LEFT, RIGHT, or CENTER");
+            
+            if (shotPlace === "LEFT") {
+                playerGuess = 0;
+            } else if (shotPlace === "RIGHT") {
+                playerGuess = 1;
+            } else if (shotPlace === "CENTER") {
+                playerGuess = 2;
+            } else {
+                alert("Invalid Input");
+                askGuess();
+            }
+    
+        }
+    askGuess();
+
+
+
+    // Randomize keeper direction
+    var keeperGuess = Math.floor((Math.random() * 3));
+
+    if (keeperGuess === playerGuess) {
+        alert(`Shot Blocked! Current score is ${score}.`);
+        newGame();
+    } else {
+        score++;
+        alert(`Goooooool! Current score is ${score}.`);
+        newGame();
+    }
+
+    // If shot === keeper, then no goal, else goal
+
+    }
+}
+</script>
+    
+</body>
+
+</html>
+
+
+<!--
+____________________________________________
+||----------------------------------------||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+||\\\\\\\\\\\\\\\\\\\\////////////////////||
+-->
+
