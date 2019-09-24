@@ -11,72 +11,90 @@
 <h1>Welcome to Keeper Guesser!</h1>
 
 <button onclick="rules()">Rules</button>
-<button>New Game</button>
+<button onclick="newGame()">New Game</button>
+<br>
+<button id="left">______________<br>
+    ||------------<br>
+    ||\\\\\\\\\\\\<br>
+    ||\\\\\\\\\\\\<br>
+    ||\\\\\\\\\\\\<br>
+    ||\\\\\\\\\\\\<br>
+    ||\\\\\\\\\\\\<br>
+    ||\\\\\\\\\\\\<br>
+    ||\\\\\\\\\\\\<br>
+    ||\\\\\\\\\\\\</button>
+<button id ="center">________________<br>
+    ----------------<br>
+    \\\\\\\\////////<br>
+    \\\\\\\\////////<br>
+    \\\\\\\\////////<br>
+    \\\\\\\\////////<br>
+    \\\\\\\\////////<br>
+    \\\\\\\\////////<br>
+    \\\\\\\\////////<br>
+    \\\\\\\\////////</button>
+<button id ="right">______________<br>
+    ------------||<br>
+    ////////////||<br>
+    ////////////||<br>
+    ////////////||<br>
+    ////////////||<br>
+    ////////////||<br>
+    ////////////||<br>
+    ////////////||<br>
+    ////////////||</button>
 <p id="score"></p>
 <p id="rules"></p>
 
 <script>
 //Keeper Guesser
-
-    //The RULES
-    function rules() {
-        document.getElementById("rules").innerHTML = "The rules";
-    }
-
-function kG() {
-//Welcome player to the game
-    alert("Welcome to Keeper Guesser!");
-    var ruleStart = window.prompt("Type RULES to see the rules or START to start a new game");
-
-    //Press one for rules and another to start
-    if (ruleStart == "RULES") {
-    // console.log("Here are the rules");
-        rules();
-    } else if (ruleStart == "START") {
-        alert("New game started");
-        newGame();
-    } else alert("Invalid Input");
-
-
-
-
-
-//If start then start new game
-
-
+let theRules = "These are the rules."
+    
+//The RULES
+function rules() {
+    document.getElementById("rules").innerHTML = theRules;
+}
 
 // New game 
 
-    function newGame() {
-        let score = 0; // Currently broken. resets to zero in this position but code doesn't work at all if it is placed higher up
-    // Ask user to place their shot
-    // maybe if i pull the askguess function out of the new game portion
+function newGame() {
+    let score = 0; 
+// Ask user to place their shot
 // add in toUpperCase method to standardize input
-        let playerGuess = 0;
-            
-        function askGuess() { // can i redo this function asking for the user's arguments instead?
-            var shotPlace = window.prompt("Pick your spot: LEFT, RIGHT, or CENTER");
-            
-            if (shotPlace === "LEFT") {
-                playerGuess = 0;
-                shotCompare();
-            } else if (shotPlace === "RIGHT") {
-                playerGuess = 1;
-                shotCompare();
-            } else if (shotPlace === "CENTER") {
-                playerGuess = 2;
-                shotCompare();
-            } else {
-                alert("Invalid Input");
-                askGuess();
-            }
-    
+//To-do - change the guess input method to the buttons
+    let playerGuess = 0;
+    let askCount = 0; 
+
+    function askGuess() { // can i redo this function asking for the user's arguments instead?
+        // Maybe I should pull this out and run it as a separate function
+        var shotPlace = window.prompt("Pick your spot: LEFT, RIGHT, or CENTER");
+        shotPlace = shotPlace.toUpperCase(); // See if this method ca be used on the above line
+        
+        if (shotPlace === "LEFT") {
+            playerGuess = 0;
+            shotCompare();
+        } else if (shotPlace === "RIGHT") {
+            playerGuess = 1;
+            shotCompare();
+        } else if (shotPlace === "CENTER") {
+            playerGuess = 2;
+            shotCompare();
+        } else if (askCount < 3) {
+            alert("Invalid Input");
+            askCount ++;
+            askGuess();
+        } else {
+            alert(`Game over. Final Score is ${score}`);
         }
-    askGuess();
+
+    }
+askGuess();
 
     function shotCompare() {
     // Randomize keeper direction
     var keeperGuess = Math.floor((Math.random() * 3));
+
+    //Compare player guess with keeper guess
 
     if (keeperGuess !== playerGuess) {
         alert(`Shot Blocked! Current score is ${score}.`);
@@ -88,10 +106,8 @@ function kG() {
     }
     }
 
-    // If shot === keeper, then no goal, else goal
-
-    }
 }
+
 </script>
     
 </body>
